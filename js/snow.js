@@ -1,103 +1,91 @@
-let preview = document.querySelector(".preview")
-let header = document.querySelector('header')
+let preview = document.querySelector(".preview");
+let header = document.querySelector('header');
 
-var w = window.innerWidth,
-  h = window.innerHeight,
-  canvas = document.getElementById('snow'),
-  ctx = canvas.getContext('2d'),
-  rate = 60,
-  arc = 700,
-  time,
-  count,
-  size = 2,
-  speed = 30,
-  lights = new Array,
-  colors = ['white'];
+const w = window.innerWidth;
+const h = window.innerHeight;
+const canvas = document.getElementById('snow');
+const ctx = canvas.getContext('2d');
+const rate = 60;
+let arc = 700; // Изменено на let, т.к. меняется позже
+let time;
+let count;
+const size = 2;
+let speed = 30; // Изменено на let, т.к. меняется позже
+const lights = [];
+let colors = ['white']; // Изменено на let, т.к. меняется позже
+let timerID; // Добавлено для clearTimeout
 
-canvas.setAttribute('width', w);
-canvas.setAttribute('height', h);
+canvas.width = w; // Прямое присваивание вместо setAttribute
+canvas.height = h; // Прямое присваивание вместо setAttribute
 
 function init() {
-  time = 0;
-  count = 0;
+    time = 0;
+    count = 0;
 
-  for (var i = 0; i < arc; i++) {
-    lights[i] = {
-      x: Math.ceil(Math.random() * w),
-      y: Math.ceil(Math.random() * h),
-      toX: Math.random() * 5 + 1,
-      toY: Math.random() * 5 + 1,
-      c: colors[Math.floor(Math.random() * colors.length)],
-      size: Math.random() * size
+    for (let i = 0; i < arc; i++) {
+        lights[i] = {
+            x: Math.random() * w, // Упрощено: Math.ceil() не нужен
+            y: Math.random() * h,  // Упрощено: Math.ceil() не нужен
+            toX: Math.random() * 5 + 1,
+            toY: Math.random() * 5 + 1,
+            c: colors[Math.floor(Math.random() * colors.length)],
+            size: Math.random() * size
+        };
     }
-  }
 }
 
-function bubble() {
-  ctx.clearRect(0, 0, w, h);
+function drawBubble() {
+    ctx.clearRect(0, 0, w, h);
 
-  for (var i = 0; i < arc; i++) {
-    var li = lights[i];
+    for (let i = 0; i < arc; i++) {
+        const li = lights[i];
 
-    ctx.beginPath();
-    ctx.arc(li.x, li.y, li.size, 0, Math.PI * 2, false);
-    ctx.fillStyle = li.c;
-    ctx.fill();
+        ctx.beginPath();
+        ctx.arc(li.x, li.y, li.size, 0, Math.PI * 2, false);
+        ctx.fillStyle = li.c;
+        ctx.fill();
 
-    li.x = li.x + li.toX * (time * 0.05);
-    li.y = li.y + li.toY * (time * 0.05);
+        li.x += li.toX * (time * 0.05); // Упрощено: прямой расчет вместо присваивания
+        li.y += li.toY * (time * 0.05);
 
-    if (li.x > w) { li.x = 0; }
-    if (li.y > h) { li.y = 0; }
-    if (li.x < 0) { li.x = w; }
-    if (li.y < 0) { li.y = h; }
-  }
-  if (time < speed) {
-    time++;
-  }
-  timerID = setTimeout(bubble, 1000 / rate);
+        if (li.x > w) {
+            li.x = 0;
+        } else if (li.x < 0) {
+            li.x = w;
+        }
+
+        if (li.y > h) {
+            li.y = 0;
+        } else if (li.y < 0) {
+            li.y = h;
+        }
+    }
+    if (time < speed) {
+        time++;
+    }
+    timerID = setTimeout(drawBubble, 1000 / rate);
 }
+
 init();
-bubble();
-
+drawBubble();
 
 setTimeout(() => {
-  canvas.style.opacity = "1"
-  setTimeout(() => {
-    canvas.style.opacity = "0"
-    preview.style.opacity = "0"
+    canvas.style.opacity = "1";
     setTimeout(() => {
-      preview.style.display = "none"
-      header.style.display = 'block'
-      setTimeout(() => {
-        header.style.opacity = '1'
-        speed = 2
-        arc = 400
-        colors = ['#8c8a8a'];
-        init();
-        bubble();
-        canvas.style.opacity = "1"
-
-
-      }, 500)
-
-
-
-    }, 500)
-  }, 3000)
-}, 1500)
-
-
-
-
-
-
-// rate = 60,
-// arc = 700,
-// time,
-// count,
-// size = 2,
-// speed = 30,
-
-
-
+        canvas.style.opacity = "0";
+        preview.style.opacity = "0";
+        setTimeout(() => {
+            preview.style.display = "none";
+            header.style.display = 'block';
+            setTimeout(() => {
+                header.style.opacity = '1';
+                speed = 2;
+                arc = 400;
+                colors = ['#8c8a8a'];
+                init();
+                drawBubble();
+                canvas.style.opacity = "1";
+            }, 500);
+        }, 500);
+    }, 3000);
+}, 1500);
