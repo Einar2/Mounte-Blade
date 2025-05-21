@@ -1,0 +1,319 @@
+//font-family: "Inknut Antiqua", serif;//
+//font-family: "Montserrat", sans-serif;//
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+
+body {
+    background-color: #000;
+}
+
+
+.preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    transition: all ease 1s;
+
+    h2 {
+        color: #fff;
+        font-size: 64px;
+        font-family: "Inknut Antiqua", serif;
+    }
+
+    span {
+        color: #fff;
+        position: absolute;
+        bottom: 10px;
+
+        a {
+            color: #B82626;
+            text-decoration: none;
+        }
+    }
+}
+
+
+#snow {
+    position: absolute;
+    opacity: 0;
+    transition: all ease-in-out 1s;
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+@keyframes nav {
+    0% {
+        transform: translateY(-100%);
+
+
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes head_main {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0%);
+
+    }
+}
+
+
+@keyframes head_contact {
+    0% {
+        bottom: -100%;
+    }
+
+    100% {
+        bottom: 20px;
+    }
+}
+
+header {
+    height: 100vh;
+    background: url('../img/back_one.jpg') no-repeat, center;
+    background-size: cover;
+    position: relative;
+    display: none;
+    opacity: 0;
+    transition: all ease 1s;
+    overflow: hidden;
+
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        height: 100px;
+        align-items: center;
+        animation: 2s ease nav;
+        transition: all ease 1s;
+
+
+        h2 {
+            color: #E31B1B;
+            font-size: 22px;
+        }
+
+        ul {
+            display: flex;
+
+            li {
+                list-style: none;
+                margin-right: 50px;
+
+                a {
+                    text-decoration: none;
+                    color: #fff;
+                    position: relative;
+
+
+                    &::after,
+                    &::before {
+                        content: '';
+                        display: block;
+                        width: 100%;
+                        height: 1px;
+                        background-color: #fff;
+                        position: absolute;
+                        transform: scaleX(0);
+                        transform-origin: left;
+                        transition: transform 0.4s ease-out;
+                    }
+
+                    &::after {
+                        top: -5px;
+                    }
+
+                    &::before {
+                        bottom: -5px;
+                    }
+
+                    &:hover:after,
+                    &:hover:before {
+                        transform: scaleX(1);
+                    }
+
+                }
+            }
+        }
+
+        .btn_galery {
+            color: #fff;
+            text-decoration: none;
+            position: relative;
+
+            &::after,
+            &::before {
+                content: '';
+                display: block;
+                width: 100%;
+                height: 1px;
+                background-color: #fff;
+                position: absolute;
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.4s ease-out;
+            }
+
+            &::after {
+                top: -5px;
+            }
+
+            &::before {
+                bottom: -5px;
+            }
+
+            &:hover:after,
+            &:hover:before {
+                transform: scaleX(1);
+            }
+        }
+    }
+
+    .head_main {
+        animation: 1.5s ease head_main;
+        will-change: transform;
+
+        margin-top: 150px;
+
+        h1 {
+            color: #fff;
+            font-family: "Inknut Antiqua", serif;
+            font-size: 32px;
+        }
+
+        p {
+            width: 100%;
+            max-width: 540px;
+            color: #DFDFDF;
+            margin-bottom: 30px;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 40px;
+            border: 1px solid #fff;
+            transition: all ease .5s;
+
+            &:hover {
+                background-color: #fff;
+                color: #000;
+            }
+        }
+    }
+
+    .head_contact {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        max-width: 1800px;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 20px;
+        padding: 0 10px;
+        animation: 2s ease head_contact;
+
+
+        p {
+            color: #fff;
+
+            a {
+                color: #E31B1B;
+                text-decoration: none;
+            }
+        }
+
+
+    }
+
+
+    .con_z {
+        z-index: 1;
+        position: relative;
+        height: 100vh;
+    }
+
+}
+
+
+
+main {
+
+    .opis_item_h {
+        margin-top: 50px;
+        display: flex;
+        align-items: center;
+
+        .line {
+            background-color: #B82626;
+            width: 40px;
+            height: 2px;
+        }
+
+        h2 {
+            color: #fff;
+            margin-right: 10px;
+
+        }
+    }
+
+    .block_opis {
+        display: flex;
+        justify-content: space-between;
+
+        .opis_item {
+            p {
+                color: #dfdfdf;
+                margin-top: 20px;
+                width: 100%;
+                max-width: 1026px;
+            }
+
+            .opis_img_main {
+                margin-top: 20px;
+                border-radius: 5px;
+            }
+
+            .opis_item_contact {
+                margin-top: 25px;
+                display: flex;
+                justify-content: flex-end;
+
+                a {
+                    margin-left: 30px;
+                }
+            }
+
+
+        }
+    }
+}
