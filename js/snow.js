@@ -6,10 +6,10 @@ const h = window.innerHeight;
 const canvas = document.getElementById('snow');
 const ctx = canvas.getContext('2d');
 const rate = 60;
-let arc = 700; // Изменено на let, т.к. меняется позже
+let arc = 600; // Изменено на let, т.к. меняется позже
 let time;
 let count;
-const size = 2;
+const size = 1;
 let speed = 30; // Изменено на let, т.к. меняется позже
 const lights = [];
 let colors = ['white']; // Изменено на let, т.к. меняется позже
@@ -80,7 +80,7 @@ setTimeout(() => {
             setTimeout(() => {
                 header.style.opacity = '1';
                 speed = 2;
-                arc = 400;
+                arc = 300;
                 colors = ['#8c8a8a'];
                 init();
                 drawBubble();
